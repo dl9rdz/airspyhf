@@ -112,8 +112,8 @@ int gettimeofday(struct timeval *tv, void* ignored)
 
 #define PACKING_MAX (0xffffffff)
 
-#define FREQ_HZ_MIN (24000000ul) /* 24MHz */
-#define FREQ_HZ_MAX (1900000000ul) /* 1900MHz (officially 1750MHz) */
+#define FREQ_HZ_MIN (9000ul) /* 9 khz */
+#define FREQ_HZ_MAX (280000000ul) /* 2800MHz (officially 260MHz) */
 #define SAMPLE_TYPE_MAX (AIRSPY_SAMPLE_END-1)
 #define BIAST_MAX (1)
 #define VGA_GAIN_MAX (15)
@@ -378,8 +378,11 @@ int rx_callback(airspyhf_transfer_t* transfer)
 		switch(sample_type_val)
 		{
 			case AIRSPY_SAMPLE_FLOAT32_IQ:
+#endif
+//maybe its this here?
 				bytes_to_write = transfer->sample_count * FLOAT32_EL_SIZE_BYTE * 2;
 				pt_rx_buffer = transfer->samples;
+#if 0
 				break;
 
 			case AIRSPY_SAMPLE_FLOAT32_REAL:
@@ -402,8 +405,6 @@ int rx_callback(airspyhf_transfer_t* transfer)
 				pt_rx_buffer = transfer->samples;
 				break;
 			case AIRSPY_SAMPLE_RAW:
-#endif
-	// everything is raw for now.... whatever this is
 				if (packing_val)
 				{
 					bytes_to_write = transfer->sample_count * INT12_EL_SIZE_BITS / INT8_EL_SIZE_BITS;
@@ -413,7 +414,6 @@ int rx_callback(airspyhf_transfer_t* transfer)
 					bytes_to_write = transfer->sample_count * INT16_EL_SIZE_BYTE * 1;
 				}
 				pt_rx_buffer = transfer->samples;
-#if 0
 				break;
 			default:
 				bytes_to_write = 0;
