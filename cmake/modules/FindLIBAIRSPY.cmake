@@ -23,7 +23,7 @@ else (LIBAIRSPYHF_INCLUDE_DIR AND LIBAIRSPYHF_LIBRARIES)
   ENDIF(NOT WIN32)
 
   FIND_PATH(LIBAIRSPYHF_INCLUDE_DIR
-    NAMES airspy.h
+    NAMES airspyhf.h
     HINTS $ENV{LIBAIRSPYHF_DIR}/include ${PC_LIBAIRSPYHF_INCLUDEDIR}
     PATHS /usr/local/include/libairspyhf /usr/include/libairspyhf /usr/local/include
     /usr/include ${CMAKE_SOURCE_DIR}/../libairspyhf/src

@@ -22,40 +22,59 @@
 # Based heavily upon the libftdi cmake setup.
 
 cmake_minimum_required(VERSION 2.8)
-project(airspyhf-tools C)
+project(airspy-tools C)
 set(MAJOR_VERSION 0)
-set(MINOR_VERSION 1)
-set(PACKAGE airspyhf-tools)
+set(MINOR_VERSION 2)
+set(PACKAGE airspy-tools)
 set(VERSION_STRING ${MAJOR_VERSION}.${MINOR_VERSION})
 set(VERSION ${VERSION_STRING})
 set(CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/../cmake/modules)
+set(CMAKE_C_FLAGS_RELEASE "-O2")
+set(CMAKE_BUILD_TYPE Release)
+add_definitions(-D_FILE_OFFSET_BITS=64)
+
+if(MSVC)
+include_directories(getopt)
+add_definitions(/D _CRT_SECURE_NO_WARNINGS)
+else()
+add_definitions(-Wall)
+endif()
+
+if(NOT libairspyhf_SOURCE_DIR)
+find_package(LIBAIRSPYHF REQUIRED)
+include_directories(${LIBAIRSPYHF_INCLUDE_DIR})
+else()
+include_directories(${libairspyhf_SOURCE_DIR}/src)
+endif()
+
+add_subdirectory(src)
 
 ########################################################################
 # Create uninstall target
 ########################################################################
-
-if(NOT airspyhf_all_SOURCE_DIR)
-configure_file(
-    ${PROJECT_SOURCE_DIR}/../cmake/cmake_uninstall.cmake.in
-    ${CMAKE_CURRENT_BINARY_DIR}/cmake_uninstall.cmake
-@ONLY)
-
-
-add_custom_target(uninstall
-    ${CMAKE_COMMAND} -P ${CMAKE_CURRENT_BINARY_DIR}/cmake_uninstall.cmake
-)
-endif()
+#
+#if(NOT airspy_all_SOURCE_DIR)
+#configure_file(
+#    ${PROJECT_SOURCE_DIR}/../cmake/cmake_uninstall.cmake.in
+#    ${CMAKE_CURRENT_BINARY_DIR}/cmake_uninstall.cmake
+#@ONLY)
+#
+#
+#add_custom_target(uninstall
+#    ${CMAKE_COMMAND} -P ${CMAKE_CURRENT_BINARY_DIR}/cmake_uninstall.cmake
+#)
+#endif()
 
 ########################################################################
 # Install udev rules
 ########################################################################
-option(INSTALL_UDEV_RULES "Install udev rules for AirSpy HF+" OFF)
-if (INSTALL_UDEV_RULES)
-    install (
-        FILES 52-airspyhf.rules
-        DESTINATION "/etc/udev/rules.d"
-        COMPONENT "udev"
-        )
-else (INSTALL_UDEV_RULES)
-    message (STATUS "Udev rules not being installed, install them with -DINSTALL_UDEV_RULES=ON")
-endif (INSTALL_UDEV_RULES)
+#option(INSTALL_UDEV_RULES "Install udev rules for AirSpy" OFF)
+#if (INSTALL_UDEV_RULES)
+#    install (
+#        FILES 52-airspy.rules
+#        DESTINATION "/etc/udev/rules.d"
+#        COMPONENT "udev"
+#        )
+#else (INSTALL_UDEV_RULES)
+#    message (STATUS "Udev rules not being installed, install them with -DINSTALL_UDEV_RULES=ON")
+#endif (INSTALL_UDEV_RULES)
