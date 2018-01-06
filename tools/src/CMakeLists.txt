@@ -61,6 +61,8 @@ if(MSVC)
 LIST(APPEND TOOLS_LINK_LIBS libgetopt_static)
 endif()
 
+LIST(APPEND TOOLS_LINK_LIBS -lm)
+
 target_link_libraries(airspy_gpio ${TOOLS_LINK_LIBS})
 target_link_libraries(airspy_gpiodir ${TOOLS_LINK_LIBS})
 target_link_libraries(airspyhf_lib_version ${TOOLS_LINK_LIBS})
