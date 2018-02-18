@@ -29,20 +29,20 @@ add_library(libgetopt_static STATIC
 )
 endif()
 
-add_executable(airspy_gpio airspy_gpio.c)
-install(TARGETS airspy_gpio RUNTIME DESTINATION ${INSTALL_DEFAULT_BINDIR})
+#add_executable(airspy_gpio airspy_gpio.c)
+#install(TARGETS airspy_gpio RUNTIME DESTINATION ${INSTALL_DEFAULT_BINDIR})
 
-add_executable(airspy_gpiodir airspy_gpiodir.c)
-install(TARGETS airspy_gpiodir RUNTIME DESTINATION ${INSTALL_DEFAULT_BINDIR})
+#add_executable(airspy_gpiodir airspy_gpiodir.c)
+#install(TARGETS airspy_gpiodir RUNTIME DESTINATION ${INSTALL_DEFAULT_BINDIR})
 
 add_executable(airspyhf_lib_version airspyhf_lib_version.c)
 install(TARGETS airspyhf_lib_version RUNTIME DESTINATION ${INSTALL_DEFAULT_BINDIR})
 
-add_executable(airspy_si5351c airspy_si5351c.c)
-install(TARGETS airspy_si5351c RUNTIME DESTINATION ${INSTALL_DEFAULT_BINDIR})
+#add_executable(airspy_si5351c airspy_si5351c.c)
+#install(TARGETS airspy_si5351c RUNTIME DESTINATION ${INSTALL_DEFAULT_BINDIR})
 
-add_executable(airspy_r820t airspy_r820t.c)
-install(TARGETS airspy_r820t RUNTIME DESTINATION ${INSTALL_DEFAULT_BINDIR})
+#add_executable(airspy_r820t airspy_r820t.c)
+#install(TARGETS airspy_r820t RUNTIME DESTINATION ${INSTALL_DEFAULT_BINDIR})
 
 add_executable(airspyhf_info airspyhf_info.c)
 install(TARGETS airspyhf_info RUNTIME DESTINATION ${INSTALL_DEFAULT_BINDIR})
@@ -62,11 +62,11 @@ LIST(APPEND TOOLS_LINK_LIBS libgetopt_static)
 endif()
 
 LIST(APPEND TOOLS_LINK_LIBS -lm)
-
-target_link_libraries(airspy_gpio ${TOOLS_LINK_LIBS})
-target_link_libraries(airspy_gpiodir ${TOOLS_LINK_LIBS})
+#
+#target_link_libraries(airspy_gpio ${TOOLS_LINK_LIBS})
+#target_link_libraries(airspy_gpiodir ${TOOLS_LINK_LIBS})
 target_link_libraries(airspyhf_lib_version ${TOOLS_LINK_LIBS})
-target_link_libraries(airspy_si5351c ${TOOLS_LINK_LIBS})
-target_link_libraries(airspy_r820t ${TOOLS_LINK_LIBS})
+#target_link_libraries(airspy_si5351c ${TOOLS_LINK_LIBS})
+#target_link_libraries(airspy_r820t ${TOOLS_LINK_LIBS})
 target_link_libraries(airspyhf_info ${TOOLS_LINK_LIBS})
 target_link_libraries(airspyhf_rx ${TOOLS_LINK_LIBS})
